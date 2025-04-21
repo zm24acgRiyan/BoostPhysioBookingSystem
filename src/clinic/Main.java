@@ -38,11 +38,12 @@ public class Main {
         while (true) {
             System.out.println("\n=== Boost Physio Clinic ===");
             System.out.println("1. Add patient");
-            System.out.println("2. Remove patient");
-            System.out.println("3. Book appointment");
-            System.out.println("4. Cancel appointment");
-            System.out.println("5. Attend appointment");
-            System.out.println("6. Print report");
+            System.out.println("2. View patients");
+            System.out.println("3. Remove patient");
+            System.out.println("4. Book appointment");
+            System.out.println("5. Cancel appointment");
+            System.out.println("6. Attend appointment");
+            System.out.println("7. Print report");
             System.out.println("0. Exit");
             System.out.print("Choose an option: ");
             int option = scanner.nextInt();
@@ -81,13 +82,19 @@ public class Main {
                     system.addPatient(new Patient(id, name, address, phone));
                     System.out.print("New patient added");
                     break;
-                case 2:
+
+                    case 2:
+                        System.out.println("Patients Details");
+                        system.viewPatients();
+                        break;
+
+                case 3:
                     System.out.print("Enter patient ID to remove: ");
                     String rid = scanner.nextLine();
                     system.removePatient(rid);
-                    System.out.print("patient removed2");
+                    System.out.print("patient removed");
                     break;
-                case 3:
+                case 4:
                     System.out.print("Enter patient ID: ");
                     String pid = scanner.nextLine();
                     Patient p = system.getPatients().stream()
@@ -119,17 +126,17 @@ public class Main {
                     system.bookAppointment(new Appointment(aid, selected, ph, p));
                     System.out.println("Booked appointment with ID: " + aid);
                     break;
-                case 4:
+                case 5:
                     System.out.print("Enter appointment ID to cancel: ");
                     String cid = scanner.nextLine();
                     system.cancelAppointment(cid);
                     break;
-                case 5:
+                case 6:
                     System.out.print("Enter appointment ID to attend: ");
                     String atid = scanner.nextLine();
                     system.attendAppointment(atid);
                     break;
-                case 6:
+                case 7:
                     system.printReport();
                     break;
                 case 0:

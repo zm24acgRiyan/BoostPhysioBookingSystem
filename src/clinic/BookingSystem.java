@@ -17,6 +17,13 @@ public class BookingSystem {
         patients.add(patient);
     }
 
+    public void viewPatients() {
+        int i = 1;
+        for (Patient patient : patients) {
+            System.out.println((i++) + ") " + patient.id + " | " + patient.name + " | " + patient.address + " | " + patient.phone);
+        }
+    }
+
     public void removePatient(String patientId) {
         patients.removeIf(p -> p.getId().equals(patientId));
     }
