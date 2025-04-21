@@ -92,7 +92,6 @@ public class Main {
                     System.out.print("Enter patient ID to remove: ");
                     String rid = scanner.nextLine();
                     system.removePatient(rid);
-                    System.out.print("patient removed");
                     break;
                 case 4:
                     System.out.print("Enter patient ID: ");

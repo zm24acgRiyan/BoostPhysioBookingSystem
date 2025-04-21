@@ -25,7 +25,26 @@ public class BookingSystem {
     }
 
     public void removePatient(String patientId) {
-        patients.removeIf(p -> p.getId().equals(patientId));
+        //patients.removeIf(p -> p.getId().equals(patientId));
+        boolean removed = patients.removeIf(p -> p.getId().equals(patientId));
+
+        if (removed) {
+            System.out.println("Patient with ID " + patientId + " has been removed.");
+        } else {
+            System.out.println("Invalid patient ID: " + patientId);
+        }
+
+//        for (Patient patient : patients) {
+//            if (patient.id.equals(patientId)) {
+//                patients.remove(patient);
+//                System.out.print("Patient removed");
+//                break;
+//            }
+//            else {
+//                System.out.println("Patient not found");
+//                break;
+//            }
+//        }
     }
 
     public void addPhysiotherapist(Physiotherapist physio) {
