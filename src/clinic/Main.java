@@ -8,6 +8,8 @@ public class Main {
     public static void main(String[] args) {
         BookingSystem system = new BookingSystem();
 
+        Validations v = new Validations();
+
         // Sample physiotherapists
         Physiotherapist helen = new Physiotherapist("P001", "Helen Smith", "123 London St", "0123456789");
         helen.addExpertise("Massage");
@@ -50,12 +52,10 @@ public class Main {
                 case 1:
                     System.out.print("Enter ID: ");
                     String id = scanner.nextLine();
-                    try {
-                        Integer.parseInt(id);
-                    } catch (Exception e) {
+                    if(v.validateNumber(id) == false) {
                         System.out.println("Enter valid ID");
-                        break;
-                    }
+                        break;}
+
                     System.out.print("Enter name: ");
                     String name = scanner.nextLine();
 
@@ -68,8 +68,16 @@ public class Main {
 
                     System.out.print("Enter address: ");
                     String address = scanner.nextLine();
+
                     System.out.print("Enter phone: ");
                     String phone = scanner.nextLine();
+
+                    if(phone.length() != 10 && v.validateNumber(phone) == false)
+                    {
+                        System.out.println("Enter valid phone number and must be 10 digits long");
+                        break;
+                    }
+
                     system.addPatient(new Patient(id, name, address, phone));
                     System.out.print("New patient added");
                     break;
