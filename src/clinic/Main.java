@@ -54,10 +54,18 @@ public class Main {
                         Integer.parseInt(id);
                     } catch (Exception e) {
                         System.out.println("Enter valid ID");
-
+                        break;
                     }
                     System.out.print("Enter name: ");
                     String name = scanner.nextLine();
+
+                    String regexOfName = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$";
+
+                    if (!name.matches(regexOfName)) {
+                        System.out.println("Enter valid name!");
+                        break;
+                    }
+
                     System.out.print("Enter address: ");
                     String address = scanner.nextLine();
                     System.out.print("Enter phone: ");
