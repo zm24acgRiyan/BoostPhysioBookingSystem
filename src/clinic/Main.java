@@ -52,8 +52,8 @@ public class Main {
                 case 1:
                     System.out.print("Enter ID: ");
                     String id = scanner.nextLine();
-                    if(v.validateNumber(id) == false) {
-                        System.out.println("Enter valid ID");
+                    if(id.length() <= 2 || id.length() >= 4 && v.validateNumber(id) == false) {
+                        System.out.println("Enter valid ID and must contain 3 digits");
                         break;}
 
                     System.out.print("Enter name: ");
@@ -72,7 +72,7 @@ public class Main {
                     System.out.print("Enter phone: ");
                     String phone = scanner.nextLine();
 
-                    if(phone.length() != 10 && v.validateNumber(phone) == false)
+                    if(phone.length() <=9 || phone.length() >= 11 && v.validateNumber(phone) == false)
                     {
                         System.out.println("Enter valid phone number and must be 10 digits long");
                         break;
