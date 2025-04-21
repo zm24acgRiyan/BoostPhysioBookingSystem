@@ -1,0 +1,128 @@
+package clinic;
+
+import java.time.LocalDateTime;
+import java.util.Scanner;
+import java.util.UUID;
+
+public class Main {
+    public static void main(String[] args) {
+        BookingSystem system = new BookingSystem();
+
+        // Sample physiotherapists
+        Physiotherapist helen = new Physiotherapist("P001", "Helen Smith", "123 London St", "0123456789");
+        helen.addExpertise("Massage");
+        helen.addExpertise("Rehabilitation");
+        Physiotherapist john = new Physiotherapist("P002", "John Doe", "456 Main Rd", "0987654321");
+        john.addExpertise("Acupuncture");
+
+        // Sample treatments
+        Treatment t1 = new Treatment("Massage", "Massage", LocalDateTime.of(2025, 5, 1, 10, 0), 60);
+        Treatment t2 = new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 2, 11, 0), 60);
+        helen.addTreatment(t1);
+        john.addTreatment(t2);
+
+        system.addPhysiotherapist(helen);
+        system.addPhysiotherapist(john);
+
+        // Sample patients
+        Patient alice = new Patient("001", "Alice Brown", "789 High St", "0778899001");
+        Patient bob = new Patient("002", "Bob Green", "101 Maple Ave", "0778899002");
+
+        system.addPatient(alice);
+        system.addPatient(bob);
+
+        // Console interface
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("\n=== Boost Physio Clinic ===");
+            System.out.println("1. Add patient");
+            System.out.println("2. Remove patient");
+            System.out.println("3. Book appointment");
+            System.out.println("4. Cancel appointment");
+            System.out.println("5. Attend appointment");
+            System.out.println("6. Print report");
+            System.out.println("0. Exit");
+            System.out.print("Choose an option: ");
+            int option = scanner.nextInt();
+            scanner.nextLine(); // consume newline
+
+            switch (option) {
+                case 1:
+                    System.out.print("Enter ID: ");
+                    String id = scanner.nextLine();
+                    try {
+                        Integer.parseInt(id);
+                    } catch (Exception e) {
+                        System.out.println("Enter valid ID");
+
+                    }
+                    System.out.print("Enter name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter address: ");
+                    String address = scanner.nextLine();
+                    System.out.print("Enter phone: ");
+                    String phone = scanner.nextLine();
+                    system.addPatient(new Patient(id, name, address, phone));
+                    System.out.print("New patient added");
+                    break;
+                case 2:
+                    System.out.print("Enter patient ID to remove: ");
+                    String rid = scanner.nextLine();
+                    system.removePatient(rid);
+                    System.out.print("patient removed2");
+                    break;
+                case 3:
+                    System.out.print("Enter patient ID: ");
+                    String pid = scanner.nextLine();
+                    Patient p = system.getPatients().stream()
+                        .filter(x -> x.getId().equals(pid)).findFirst().orElse(null);
+                    if (p == null) {
+                        System.out.println("Patient not found.");
+                        break;
+                    }
+                    System.out.print("Enter physio name: ");
+                    String pname = scanner.nextLine();
+                    Physiotherapist ph = system.getPhysios().stream()
+                        .filter(x -> x.getName().equalsIgnoreCase(pname)).findFirst().orElse(null);
+                    if (ph == null) {
+                        System.out.println("Physio not found.");
+                        break;
+                    }
+                    for (Treatment t : ph.getTreatments()) {
+                        System.out.println("Treatment: " + t);
+                    }
+                    System.out.print("Book which treatment (name): ");
+                    String tname = scanner.nextLine();
+                    Treatment selected = ph.getTreatments().stream()
+                        .filter(x -> x.getName().equalsIgnoreCase(tname)).findFirst().orElse(null);
+                    if (selected == null) {
+                        System.out.println("Treatment not found.");
+                        break;
+                    }
+                    String aid = UUID.randomUUID().toString().substring(0, 8);
+                    system.bookAppointment(new Appointment(aid, selected, ph, p));
+                    System.out.println("Booked appointment with ID: " + aid);
+                    break;
+                case 4:
+                    System.out.print("Enter appointment ID to cancel: ");
+                    String cid = scanner.nextLine();
+                    system.cancelAppointment(cid);
+                    break;
+                case 5:
+                    System.out.print("Enter appointment ID to attend: ");
+                    String atid = scanner.nextLine();
+                    system.attendAppointment(atid);
+                    break;
+                case 6:
+                    system.printReport();
+                    break;
+                case 0:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Invalid option.");
+            }
+
+        }
+    }
+}
