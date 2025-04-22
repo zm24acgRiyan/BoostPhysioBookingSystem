@@ -45,3 +45,4 @@ public class Appointment {
                 ", Status: " + status;
     }
 }
+

@@ -28,4 +28,5 @@ public class Physiotherapist extends Person {
     public void addTreatment(Treatment treatment) {
         treatments.add(treatment);
     }
+
 }

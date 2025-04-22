@@ -1,6 +1,7 @@
 package clinic;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ public class Main {
         Physiotherapist helen = new Physiotherapist("P001", "Helen Smith", "123 London St", "0123456789");
         helen.addExpertise("Massage");
         helen.addExpertise("Rehabilitation");
-        Physiotherapist john = new Physiotherapist("P002", "John Doe", "456 Main Rd", "0987654321");
+        Physiotherapist john = new Physiotherapist("P002", "Jupiter Brihas", "456 Main Rd", "0987654321");
         john.addExpertise("Acupuncture");
 
         // Sample treatments
@@ -39,11 +40,12 @@ public class Main {
             System.out.println("\n=== Boost Physio Clinic ===");
             System.out.println("1. Add patient");
             System.out.println("2. View patients");
-            System.out.println("3. Remove patient");
-            System.out.println("4. Book appointment");
-            System.out.println("5. Cancel appointment");
-            System.out.println("6. Attend appointment");
-            System.out.println("7. Print report");
+            System.out.println("3. View Physiotherapists");
+            System.out.println("4. Remove patient");
+            System.out.println("5. Book appointment");
+            System.out.println("6. Cancel appointment");
+            System.out.println("7. Attend appointment");
+            System.out.println("8. Print report");
             System.out.println("0. Exit");
             System.out.print("Choose an option: ");
             int option = scanner.nextInt();
@@ -83,17 +85,23 @@ public class Main {
                     System.out.print("New patient added");
                     break;
 
-                    case 2:
-                        System.out.println("Patients Details");
-                        system.viewPatients();
-                        break;
+                case 2:
+                    System.out.println("Patients Details");
+                    system.viewPatients();
+                    viewPhysiotherapists(system.getPhysios()); // fixed this line
+                    break;
 
                 case 3:
+                    System.out.println("Physiotherapists Details");
+                    viewPhysiotherapists(system.getPhysios()); // fixed this line
+                    break;
+
+                case 4:
                     System.out.print("Enter patient ID to remove: ");
                     String rid = scanner.nextLine();
                     system.removePatient(rid);
                     break;
-                case 4:
+                case 5:
                     System.out.print("Enter patient ID: ");
                     String pid = scanner.nextLine();
                     Patient p = system.getPatients().stream()
@@ -125,17 +133,18 @@ public class Main {
                     system.bookAppointment(new Appointment(aid, selected, ph, p));
                     System.out.println("Booked appointment with ID: " + aid);
                     break;
-                case 5:
+                case 6:
                     System.out.print("Enter appointment ID to cancel: ");
                     String cid = scanner.nextLine();
                     system.cancelAppointment(cid);
                     break;
-                case 6:
+
+                case 7:
                     System.out.print("Enter appointment ID to attend: ");
                     String atid = scanner.nextLine();
                     system.attendAppointment(atid);
                     break;
-                case 7:
+                case 8:
                     system.printReport();
                     break;
                 case 0:
@@ -147,4 +156,21 @@ public class Main {
 
         }
     }
+    public static void viewPhysiotherapists(List<Physiotherapist> physiotherapists) {
+        if (physiotherapists.isEmpty()) {
+            System.out.println("No physiotherapists available.");
+        } else {
+            for (Physiotherapist p : physiotherapists) {
+                System.out.println("ID: " + p.getId());
+                System.out.println("Name: " + p.getName());
+                System.out.println("Address: " + p.getAddress());
+                System.out.println("Phone: " + p.getPhone());
+                System.out.println("Expertise: " + String.join(", ", p.getExpertise()));
+                System.out.println("Treatments: " + p.getTreatments().size());
+                System.out.println("------------------------");
+            }
+        }
+    }
+
+
 }
