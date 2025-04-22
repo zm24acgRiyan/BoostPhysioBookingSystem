@@ -8,24 +8,64 @@ import java.util.UUID;
 public class Main {
     public static void main(String[] args) {
         BookingSystem system = new BookingSystem();
-
         Validations v = new Validations();
 
         // Sample physiotherapists
+        // Create physiotherapists
         Physiotherapist helen = new Physiotherapist("P001", "Helen Smith", "123 London St", "0123456789");
         helen.addExpertise("Massage");
         helen.addExpertise("Rehabilitation");
+
         Physiotherapist john = new Physiotherapist("P002", "Jupiter Brihas", "456 Main Rd", "0987654321");
         john.addExpertise("Acupuncture");
 
-        // Sample treatments
-        Treatment t1 = new Treatment("Massage", "Massage", LocalDateTime.of(2025, 5, 1, 10, 0), 60);
-        Treatment t2 = new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 2, 11, 0), 60);
-        helen.addTreatment(t1);
-        john.addTreatment(t2);
+        Physiotherapist emily = new Physiotherapist("P003", "Emily Clarke", "789 Elm Ave", "0171234567");
+        emily.addExpertise("Osteopathy");
+        emily.addExpertise("Rehabilitation");
 
+        Physiotherapist david = new Physiotherapist("P004", "David Lee", "321 Maple Ln", "0154321987");
+        david.addExpertise("Physiotherapy");
+        david.addExpertise("Neural mobilisation");
+
+        Physiotherapist nina = new Physiotherapist("P005", "Nina Patel", "654 Birch St", "0134567890");
+        nina.addExpertise("Mobilisation of the spine and joints");
+        nina.addExpertise("Pool rehabilitation");
+
+        // Assign treatments to physiotherapists for 4 weeks
+        // Week 1
+        helen.addTreatment(new Treatment("Massage", "Massage", LocalDateTime.of(2025, 5, 5, 10, 0), 60));
+        john.addTreatment(new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 6, 11, 0), 60));
+        emily.addTreatment(new Treatment("Rehabilitation", "Rehabilitation", LocalDateTime.of(2025, 5, 7, 14, 0), 60));
+        david.addTreatment(new Treatment("Neural mobilisation", "Neural mobilisation", LocalDateTime.of(2025, 5, 8, 9, 0), 45));
+        nina.addTreatment(new Treatment("Pool rehabilitation", "Pool rehabilitation", LocalDateTime.of(2025, 5, 9, 13, 0), 60));
+
+        // Week 2
+        helen.addTreatment(new Treatment("Rehabilitation", "Rehabilitation", LocalDateTime.of(2025, 5, 12, 9, 0), 60));
+        john.addTreatment(new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 13, 10, 0), 60));
+        emily.addTreatment(new Treatment("Osteopathy", "Osteopathy", LocalDateTime.of(2025, 5, 14, 15, 0), 60));
+        david.addTreatment(new Treatment("Physiotherapy", "Physiotherapy", LocalDateTime.of(2025, 5, 15, 8, 30), 60));
+        nina.addTreatment(new Treatment("Mobilisation of the spine and joints", "Mobilisation of the spine and joints", LocalDateTime.of(2025, 5, 16, 12, 0), 60));
+
+        // Week 3
+        helen.addTreatment(new Treatment("Massage", "Massage", LocalDateTime.of(2025, 5, 19, 10, 0), 60));
+        john.addTreatment(new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 20, 11, 30), 60));
+        emily.addTreatment(new Treatment("Rehabilitation", "Rehabilitation", LocalDateTime.of(2025, 5, 21, 13, 30), 60));
+        david.addTreatment(new Treatment("Neural mobilisation", "Neural mobilisation", LocalDateTime.of(2025, 5, 22, 10, 0), 45));
+        nina.addTreatment(new Treatment("Pool rehabilitation", "Pool rehabilitation", LocalDateTime.of(2025, 5, 23, 14, 0), 60));
+
+        // Week 4
+        helen.addTreatment(new Treatment("Rehabilitation", "Rehabilitation", LocalDateTime.of(2025, 5, 26, 11, 0), 60));
+        john.addTreatment(new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 27, 9, 0), 60));
+        emily.addTreatment(new Treatment("Osteopathy", "Osteopathy", LocalDateTime.of(2025, 5, 28, 15, 30), 60));
+        david.addTreatment(new Treatment("Physiotherapy", "Physiotherapy", LocalDateTime.of(2025, 5, 29, 8, 45), 60));
+        nina.addTreatment(new Treatment("Mobilisation of the spine and joints", "Mobilisation of the spine and joints", LocalDateTime.of(2025, 5, 30, 13, 0), 60));
+
+        // Add physiotherapists to the system
         system.addPhysiotherapist(helen);
         system.addPhysiotherapist(john);
+        system.addPhysiotherapist(emily);
+        system.addPhysiotherapist(david);
+        system.addPhysiotherapist(nina);
 
         // Sample patients
         Patient alice = new Patient("001", "Alice Brown", "789 High St", "0778899001");
@@ -102,37 +142,99 @@ public class Main {
                     system.removePatient(rid);
                     break;
                 case 5:
+                    System.out.println("1. Search by area of expertise");
+                    System.out.println("2. Search by physiotherapist name");
+                    System.out.print("Choose option: ");
+                    int choice = Integer.parseInt(scanner.nextLine());
+
+                    Physiotherapist ph = null;
+
+                    if (choice == 1) {
+                        System.out.print("Enter area of expertise: ");
+                        String expertise = scanner.nextLine();
+                        List<Physiotherapist> physiosWithExpertise = system.getPhysios().stream()
+                                .filter(x -> x.getExpertise().stream()
+                                        .anyMatch(e -> e.equalsIgnoreCase(expertise)))
+                                .toList();
+
+                        if (physiosWithExpertise.isEmpty()) {
+                            System.out.println("No physiotherapists found with that expertise.");
+                            break;
+                        }
+
+                        System.out.println("Available physiotherapists:");
+                        for (Physiotherapist x : physiosWithExpertise) {
+                            System.out.println("- " + x.getName());
+                        }
+
+                        System.out.print("Enter physio name from above list: ");
+                        String pname = scanner.nextLine();
+                        ph = physiosWithExpertise.stream()
+                                .filter(x -> x.getName().equalsIgnoreCase(pname))
+                                .findFirst().orElse(null);
+
+                        if (ph == null) {
+                            System.out.println("Selected physiotherapist not found.");
+                            break;
+                        }
+
+                    } else if (choice == 2) {
+                        System.out.print("Enter physio name: ");
+                        String pname = scanner.nextLine();
+                        ph = system.getPhysios().stream()
+                                .filter(x -> x.getName().equalsIgnoreCase(pname))
+                                .findFirst().orElse(null);
+
+                        if (ph == null) {
+                            System.out.println("Physiotherapist not found.");
+                            break;
+                        }
+                    } else {
+                        System.out.println("Invalid choice.");
+                        break;
+                    }
+
                     System.out.print("Enter patient ID: ");
                     String pid = scanner.nextLine();
                     Patient p = system.getPatients().stream()
-                        .filter(x -> x.getId().equals(pid)).findFirst().orElse(null);
+                            .filter(x -> x.getId().equals(pid)).findFirst().orElse(null);
                     if (p == null) {
                         System.out.println("Patient not found.");
                         break;
                     }
-                    System.out.print("Enter physio name: ");
-                    String pname = scanner.nextLine();
-                    Physiotherapist ph = system.getPhysios().stream()
-                        .filter(x -> x.getName().equalsIgnoreCase(pname)).findFirst().orElse(null);
-                    if (ph == null) {
-                        System.out.println("Physio not found.");
+
+                    if (ph.getTreatments().isEmpty()) {
+                        System.out.println("No treatments available from this physiotherapist.");
                         break;
                     }
+
+                    // Display treatments with a number
+                    System.out.println("Available treatments:");
+                    int treatmentNumber = 1;
                     for (Treatment t : ph.getTreatments()) {
-                        System.out.println("Treatment: " + t);
+                        System.out.println(treatmentNumber + ". " + t.getName() + " on " + t.getDateTime().toLocalDate() +
+                                " at " + t.getDateTime().toLocalTime());
+                        treatmentNumber++;
                     }
-                    System.out.print("Book which treatment (name): ");
-                    String tname = scanner.nextLine();
-                    Treatment selected = ph.getTreatments().stream()
-                        .filter(x -> x.getName().equalsIgnoreCase(tname)).findFirst().orElse(null);
-                    if (selected == null) {
-                        System.out.println("Treatment not found.");
+
+                    System.out.print("Book which treatment (enter the number): ");
+                    int treatmentChoice = Integer.parseInt(scanner.nextLine());
+
+                    // Check if the entered choice is valid
+                    if (treatmentChoice < 1 || treatmentChoice > ph.getTreatments().size()) {
+                        System.out.println("Invalid treatment choice.");
                         break;
                     }
+
+                    // Get the selected treatment based on the number
+                    Treatment selected = ph.getTreatments().get(treatmentChoice - 1);  // Subtract 1 to match index
+
                     String aid = UUID.randomUUID().toString().substring(0, 8);
                     system.bookAppointment(new Appointment(aid, selected, ph, p));
                     System.out.println("Booked appointment with ID: " + aid);
                     break;
+
+
                 case 6:
                     System.out.print("Enter appointment ID to cancel: ");
                     String cid = scanner.nextLine();
@@ -167,10 +269,21 @@ public class Main {
                 System.out.println("Phone: " + p.getPhone());
                 System.out.println("Expertise: " + String.join(", ", p.getExpertise()));
                 System.out.println("Treatments: " + p.getTreatments().size());
+
+                if (!p.getTreatments().isEmpty()) {
+                    System.out.println("Available treatments and timings:");
+                    for (Treatment t : p.getTreatments()) {
+                        System.out.println("- " + t.getName() + " on " + t.getDateTime().toLocalDate() +
+                                " at " + t.getDateTime().toLocalTime());
+                    }
+                } else {
+                    System.out.println("No available treatments.");
+                }
                 System.out.println("------------------------");
             }
         }
     }
+
 
 
 }
