@@ -6,6 +6,8 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         BookingSystem system = new BookingSystem();
+        Scanner scanner = new Scanner(System.in);
+
         Validations v = new Validations();
         // Declare ph at the class level
         Physiotherapist ph = null; // Initialize ph as null
@@ -102,23 +104,39 @@ public class Main {
         system.addPatient(rohit);
         system.addPatient(deepika);
 
-        // Console interface
-        Scanner scanner = new Scanner(System.in);
+        // ANSI Escape codes for colors and styles
+        String reset = "\u001B[0m";
+        String bold = "\u001B[1m";
+        String underline = "\u001B[4m";
+        String green = "\u001B[32m";
+        String yellow = "\u001B[33m";
+        String blue = "\u001B[34m";
+        String purple = "\u001B[35m";
+        String cyan = "\u001B[36m";
+        String lightGreen = "\u001B[92m";
+        String lightPurple = "\u001B[35m";
+
+        // Console interface with more stylistic elements
         while (true) {
-            System.out.println("\n=== Boost Physio Clinic ===");
-            System.out.println("1. Add patient");
-            System.out.println("2. View patients");
-            System.out.println("3. View Physiotherapists");
-            System.out.println("4. Remove patient");
-            System.out.println("5. Book appointment");
-            System.out.println("6. Cancel appointment");
-            System.out.println("7. Change an appointment");
-            System.out.println("8. Attend appointment");
-            System.out.println("9. Print report");
-            System.out.println("0. Exit");
-            System.out.print("Choose an option: ");
+            System.out.println(blue + bold + "╔══════════════════════════════════╗" + reset);
+            System.out.println(blue + "║  " + green + "Boost Physio Clinic" + reset + " ║");
+            System.out.println(blue + "╠══════════════════════════════════╣" + reset);
+            System.out.println(blue + "║  " + cyan + "1. Add patient" + reset + "              ║");
+            System.out.println(blue + "║  " + cyan + "2. View patients" + reset + "            ║");
+            System.out.println(blue + "║  " + cyan + "3. View Physiotherapists" + reset + "    ║");
+            System.out.println(blue + "║  " + cyan + "4. Remove patient" + reset + "           ║");
+            System.out.println(blue + "║  " + cyan + "5. Book appointment" + reset + "         ║");
+            System.out.println(blue + "║  " + cyan + "6. Cancel appointment" + reset + "       ║");
+            System.out.println(blue + "║  " + cyan + "7. Change an appointment" + reset + "    ║");
+            System.out.println(blue + "║  " + cyan + "8. Attend appointment" + reset + "       ║");
+            System.out.println(blue + "║  " + cyan + "9. Print report" + reset + "             ║");
+            System.out.println(blue + "║  " + yellow + "0. Exit" + reset + "                   ║");
+            System.out.println(blue + "╠══════════════════════════════════╣" + reset);
+            System.out.print(blue + "║ " + green + "Choose an option: " + reset);
+
             int option = scanner.nextInt();
             scanner.nextLine(); // consume newline
+
 
             switch (option) {
                 case 1:
@@ -420,31 +438,46 @@ public class Main {
 
         }
     }
-    public static void viewPhysiotherapists(List<Physiotherapist> physiotherapists) {
-        if (physiotherapists.isEmpty()) {
-            System.out.println("No physiotherapists available.");
-        } else {
-            for (Physiotherapist p : physiotherapists) {
-                System.out.println("ID: " + p.getId());
-                System.out.println("Name: " + p.getName());
-                System.out.println("Address: " + p.getAddress());
-                System.out.println("Phone: " + p.getPhone());
-                System.out.println("Expertise: " + String.join(", ", p.getExpertise()));
-                System.out.println("Treatments: " + p.getTreatments().size());
 
-                if (!p.getTreatments().isEmpty()) {
-                    System.out.println("Available treatments and timings:");
-                    for (Treatment t : p.getTreatments()) {
-                        System.out.println("- " + t.getName() + " on " + t.getDateTime().toLocalDate() +
-                                " at " + t.getDateTime().toLocalTime());
+        public static void viewPhysiotherapists(List<Physiotherapist> physiotherapists) {
+            // ANSI Escape codes for colors and styles
+            String reset = "\u001B[0m";
+            String bold = "\u001B[1m";
+            String underline = "\u001B[4m";
+            String green = "\u001B[32m";
+            String yellow = "\u001B[33m";
+            String blue = "\u001B[34m";
+            String purple = "\u001B[35m";
+            String cyan = "\u001B[36m";
+            String lightGreen = "\u001B[92m";
+
+            if (physiotherapists.isEmpty()) {
+                System.out.println(blue + bold + "No physiotherapists available." + reset);
+            } else {
+                for (Physiotherapist p : physiotherapists) {
+                    System.out.println(purple + "╔═════════════════════════════════════╗" + reset);
+                    System.out.println(purple + "║ " + green + "ID: " + cyan + p.getId() + reset);
+                    System.out.println(purple + "║ " + green + "Name: " + cyan + p.getName() + reset);
+                    System.out.println(purple + "║ " + green + "Address: " + cyan + p.getAddress() + reset );
+                    System.out.println(purple + "║ " + green + "Phone: " + cyan + p.getPhone() + reset );
+                    System.out.println(purple + "║ " + green + "Expertise: " + cyan + String.join(", ", p.getExpertise()) + reset );
+                    System.out.println(purple + "║ " + green + "Treatments: " + cyan + p.getTreatments().size() + reset );
+
+                    if (!p.getTreatments().isEmpty()) {
+                        System.out.println(purple + "║ " + green + "Available treatments and timings:" + reset);
+                        for (Treatment t : p.getTreatments()) {
+                            System.out.println(purple + "║ - " + green + t.getName() + reset + " on " + cyan + t.getDateTime().toLocalDate() +
+                                    " at " + cyan + t.getDateTime().toLocalTime() + reset );
+                        }
+                    } else {
+                        System.out.println(purple + "║ " + yellow + "No available treatments." + reset );
                     }
-                } else {
-                    System.out.println("No available treatments.");
+                    System.out.println(purple + "╚═════════════════════════════════════╝" + reset);
+                    System.out.println();
                 }
-                System.out.println("------------------------");
             }
         }
-    }
+
 
 
 

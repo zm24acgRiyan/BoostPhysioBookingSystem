@@ -18,11 +18,32 @@ public class BookingSystem {
     }
 
     public void viewPatients() {
+        // ANSI Escape codes for colors and styles
+        String reset = "\u001B[0m";
+        String bold = "\u001B[1m";
+        String green = "\u001B[32m";
+        String cyan = "\u001B[36m";
+        String yellow = "\u001B[33m";
+        String purple = "\u001B[35m";
+        String lightPurple = "\u001B[92m";
+
+        // Stylish header for the view
+        System.out.println(purple + bold + "╔══════════════════════════════════════════╗" + reset);
+        System.out.println(purple + "║ " + lightPurple + "📋 " + reset + bold + "Patient List" + reset + " " + purple);
+        System.out.println(purple + "╠══════════════════════════════════════════╣" + reset);
+
+        // Patient list with stylish formatting
         int i = 1;
         for (Patient patient : patients) {
-            System.out.println((i++) + ") " + patient.id + " | " + patient.name + " | " + patient.address + " | " + patient.phone);
+            System.out.println(purple + "║  " + green + (i++) + ". " + cyan + patient.id + "  " + reset + "| " +
+                    lightPurple + patient.name + reset + "  | " + yellow + patient.address + reset +
+                    "  | " + green + patient.phone + reset );
         }
+
+        // Stylish footer
+        System.out.println(purple + "╚══════════════════════════════════════════╝" + reset);
     }
+
 
     public void removePatient(String patientId) {
         //patients.removeIf(p -> p.getId().equals(patientId));
@@ -124,15 +145,29 @@ public class BookingSystem {
     }
 
     public void printReport() {
+        // ANSI escape codes for styling and color
+        String reset = "\u001B[0m";
+        String bold = "\u001B[1m";
+        String underline = "\u001B[4m";
+        String green = "\u001B[32m";
+        String yellow = "\u001B[33m";
+        String blue = "\u001B[34m";
+        String purple = "\u001B[35m";
+        String cyan = "\u001B[36m";
+
         Map<String, Integer> attendedCount = new HashMap<>();
 
-        System.out.println("Treatment Appointments by Physiotherapist:");
+        // Start with a nice title for the report
+        System.out.println(purple + bold + "===== Treatment Appointments Report =====" + reset);
+        System.out.println(green + underline + "Treatment Appointments by Physiotherapist:" + reset);
+
+        // Print out each appointment in a clear, structured format
         for (Appointment a : appointments) {
-            System.out.println("Physiotherapist: " + a.getPhysiotherapist().getName() +
-                    ", Treatment: " + a.getTreatment().getName() +
-                    ", Patient: " + a.getPatient().getName() +
-                    ", Time: " + a.getTime() +   // This works if getTime() exists
-                    ", Status: " + a.getStatus());
+            System.out.println(blue + "Physiotherapist: " + cyan + a.getPhysiotherapist().getName() + reset +
+                    ", " + blue + "Treatment: " + cyan + a.getTreatment().getName() + reset +
+                    ", " + blue + "Patient: " + cyan + a.getPatient().getName() + reset +
+                    ", " + blue + "Time: " + cyan + a.getTime() + reset +  // Assuming getTime() returns a formatted string
+                    ", " + blue + "Status: " + cyan + a.getStatus() + reset);
 
             if (a.getStatus().equalsIgnoreCase("attended")) {
                 String physioName = a.getPhysiotherapist().getName();
@@ -140,10 +175,13 @@ public class BookingSystem {
             }
         }
 
-        System.out.println("\nPhysiotherapists by number of attended appointments:");
+        // Heading for the physiotherapist attendance count
+        System.out.println("\n" + yellow + underline + "Physiotherapists by number of attended appointments:" + reset);
+
+        // Sorting and displaying the attended count
         attendedCount.entrySet().stream()
                 .sorted((a, b) -> b.getValue() - a.getValue())
-                .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
+                .forEach(entry -> System.out.println(purple + entry.getKey() + reset + ": " + green + entry.getValue() + reset));
     }
 
     // Getters
