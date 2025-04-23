@@ -44,5 +44,6 @@ public class Appointment {
         return "Appointment ID: " + id + ", " + treatment + ", Patient: " + patient.getName() +
                 ", Status: " + status;
     }
+
 }
 

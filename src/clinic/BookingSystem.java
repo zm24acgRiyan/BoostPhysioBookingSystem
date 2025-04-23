@@ -56,17 +56,24 @@ public class BookingSystem {
     }
 
     public void cancelAppointment(String appointmentId) {
+        boolean found = false;
         for (Appointment a : appointments) {
             if (a.getId().equals(appointmentId)) {
-                a.changeStatus("cancelled");
-                System.out.print("Appointment cancelled");
+                found = true;
+                if ("attended".equalsIgnoreCase(a.getStatus())) {
+                    System.out.println("Appointment is Already Attended, cannot cancel");
+                } else {
+                    a.changeStatus("cancelled");
+                    System.out.println("Appointment cancelled");
+                }
                 break;
             }
-            else {
-                System.out.println("Appointment ID not found");
-            }
+        }
+        if (!found) {
+            System.out.println("Appointment ID not found");
         }
     }
+
 
     public void attendAppointment(String appointmentId) {
         for (Appointment a : appointments) {
