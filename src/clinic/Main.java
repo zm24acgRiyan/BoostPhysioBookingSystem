@@ -1,9 +1,7 @@
 package clinic;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -176,36 +174,90 @@ public class Main {
                     Physiotherapist ph = null;
 
                     if (choice == 1) {
-                        System.out.print("Enter area of expertise: ");
-                        String expertise = scanner.nextLine();
-                        List<Physiotherapist> physiosWithExpertise = system.getPhysios().stream()
+                        // Sub-options for expertise
+                        System.out.println("Choose area of expertise:");
+                        System.out.println("1. Physiotherapy");
+                        System.out.println("2. Rehabilitation");
+                        System.out.println("3. Osteopathy");
+                        System.out.print("Enter option: ");
+                        int expertiseChoice = Integer.parseInt(scanner.nextLine());
+
+                        String expertise = switch (expertiseChoice) {
+                            case 1 -> "Physiotherapy";
+                            case 2 -> "Rehabilitation";
+                            case 3 -> "Osteopathy";
+                            default -> null;
+                        };
+
+                        if (expertise == null) {
+                            System.out.println("Invalid expertise option.");
+                            break;
+                        }
+
+                        // Filter physiotherapists with that expertise
+                        List<Physiotherapist> physios = system.getPhysios().stream()
                                 .filter(x -> x.getExpertise().stream()
                                         .anyMatch(e -> e.equalsIgnoreCase(expertise)))
                                 .toList();
 
-                        if (physiosWithExpertise.isEmpty()) {
+                        if (physios.isEmpty()) {
                             System.out.println("No physiotherapists found with that expertise.");
                             break;
                         }
 
-                        System.out.println("Available physiotherapists:");
-                        for (Physiotherapist x : physiosWithExpertise) {
-                            System.out.println("- " + x.getName());
+                        // Display physios and their treatments
+                        System.out.println("Available physiotherapists and their treatments:");
+                        int physioIndex = 1;
+                        Map<Integer, Physiotherapist> physioMap = new HashMap<>();
+                        for (Physiotherapist x : physios) {
+                            System.out.println(physioIndex + ". " + x.getName());
+                            List<Treatment> treatments = x.getTreatments();
+                            if (treatments.isEmpty()) {
+                                System.out.println("   No treatments available.");
+                            } else {
+                                for (int i = 0; i < treatments.size(); i++) {
+                                    Treatment t = treatments.get(i);
+                                    System.out.println("   [" + (i + 1) + "] " + t.getName() + " on " +
+                                            t.getDateTime().toLocalDate() + " at " + t.getDateTime().toLocalTime());
+                                }
+                            }
+                            physioMap.put(physioIndex, x);
+                            physioIndex++;
                         }
 
-                        System.out.print("Enter physio name from above list: ");
-                        String pname = scanner.nextLine();
-                        ph = physiosWithExpertise.stream()
-                                .filter(x -> x.getName().equalsIgnoreCase(pname))
-                                .findFirst().orElse(null);
-
-                        if (ph == null) {
-                            System.out.println("Selected physiotherapist not found.");
+                        System.out.print("Select physiotherapist by number: ");
+                        int physioSelection = Integer.parseInt(scanner.nextLine());
+                        ph = physioMap.get(physioSelection);
+                        if (ph == null || ph.getTreatments().isEmpty()) {
+                            System.out.println("Invalid selection or no treatments.");
                             break;
                         }
 
+                        System.out.print("Select treatment by number: ");
+                        int treatmentSelection = Integer.parseInt(scanner.nextLine());
+                        if (treatmentSelection < 1 || treatmentSelection > ph.getTreatments().size()) {
+                            System.out.println("Invalid treatment choice.");
+                            break;
+                        }
+
+                        Treatment selected = ph.getTreatments().get(treatmentSelection - 1);
+
+                        // Get patient
+                        System.out.print("Enter patient ID: ");
+                        String pid = scanner.nextLine();
+                        Patient p = system.getPatients().stream()
+                                .filter(x -> x.getId().equals(pid)).findFirst().orElse(null);
+                        if (p == null) {
+                            System.out.println("Patient not found.");
+                            break;
+                        }
+
+                        String aid = UUID.randomUUID().toString().substring(0, 8);
+                        system.bookAppointment(new Appointment(aid, selected, ph, p));
+                        System.out.println("Booked appointment with ID: " + aid);
+
                     } else if (choice == 2) {
-                        System.out.print("Enter physio name: ");
+                        System.out.print("Enter physiotherapist name: ");
                         String pname = scanner.nextLine();
                         ph = system.getPhysios().stream()
                                 .filter(x -> x.getName().equalsIgnoreCase(pname))
@@ -215,49 +267,47 @@ public class Main {
                             System.out.println("Physiotherapist not found.");
                             break;
                         }
+
+                        if (ph.getTreatments().isEmpty()) {
+                            System.out.println("No treatments available from this physiotherapist.");
+                            break;
+                        }
+
+                        // Display treatments
+                        System.out.println("Available treatments:");
+                        for (int i = 0; i < ph.getTreatments().size(); i++) {
+                            Treatment t = ph.getTreatments().get(i);
+                            System.out.println((i + 1) + ". " + t.getName() + " on " +
+                                    t.getDateTime().toLocalDate() + " at " + t.getDateTime().toLocalTime());
+                        }
+
+                        System.out.print("Select treatment by number: ");
+                        int treatmentSelection = Integer.parseInt(scanner.nextLine());
+                        if (treatmentSelection < 1 || treatmentSelection > ph.getTreatments().size()) {
+                            System.out.println("Invalid treatment choice.");
+                            break;
+                        }
+
+                        Treatment selected = ph.getTreatments().get(treatmentSelection - 1);
+
+                        // Get patient
+                        System.out.print("Enter patient ID: ");
+                        String pid = scanner.nextLine();
+                        Patient p = system.getPatients().stream()
+                                .filter(x -> x.getId().equals(pid)).findFirst().orElse(null);
+                        if (p == null) {
+                            System.out.println("Patient not found.");
+                            break;
+                        }
+
+                        String aid = UUID.randomUUID().toString().substring(0, 8);
+                        system.bookAppointment(new Appointment(aid, selected, ph, p));
+                        System.out.println("Booked appointment with ID: " + aid);
+
                     } else {
                         System.out.println("Invalid choice.");
-                        break;
                     }
 
-                    System.out.print("Enter patient ID: ");
-                    String pid = scanner.nextLine();
-                    Patient p = system.getPatients().stream()
-                            .filter(x -> x.getId().equals(pid)).findFirst().orElse(null);
-                    if (p == null) {
-                        System.out.println("Patient not found.");
-                        break;
-                    }
-
-                    if (ph.getTreatments().isEmpty()) {
-                        System.out.println("No treatments available from this physiotherapist.");
-                        break;
-                    }
-
-                    // Display treatments with a number
-                    System.out.println("Available treatments:");
-                    int treatmentNumber = 1;
-                    for (Treatment t : ph.getTreatments()) {
-                        System.out.println(treatmentNumber + ". " + t.getName() + " on " + t.getDateTime().toLocalDate() +
-                                " at " + t.getDateTime().toLocalTime());
-                        treatmentNumber++;
-                    }
-
-                    System.out.print("Book which treatment (enter the number): ");
-                    int treatmentChoice = Integer.parseInt(scanner.nextLine());
-
-                    // Check if the entered choice is valid
-                    if (treatmentChoice < 1 || treatmentChoice > ph.getTreatments().size()) {
-                        System.out.println("Invalid treatment choice.");
-                        break;
-                    }
-
-                    // Get the selected treatment based on the number
-                    Treatment selected = ph.getTreatments().get(treatmentChoice - 1);  // Subtract 1 to match index
-
-                    String aid = UUID.randomUUID().toString().substring(0, 8);
-                    system.bookAppointment(new Appointment(aid, selected, ph, p));
-                    System.out.println("Booked appointment with ID: " + aid);
                     break;
 
 
