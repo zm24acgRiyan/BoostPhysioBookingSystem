@@ -257,11 +257,30 @@ public class Main {
                         System.out.println("Booked appointment with ID: " + aid);
 
                     } else if (choice == 2) {
-                        System.out.print("Enter physiotherapist name: ");
-                        String pname = scanner.nextLine();
-                        ph = system.getPhysios().stream()
-                                .filter(x -> x.getName().equalsIgnoreCase(pname))
-                                .findFirst().orElse(null);
+                        List<Physiotherapist> allPhysios = system.getPhysios();
+                        if (allPhysios.isEmpty()) {
+                            System.out.println("No physiotherapists available.");
+                            break;
+                        }
+
+                        System.out.println("Available physiotherapists:");
+                        Map<Integer, Physiotherapist> physioMap = new HashMap<>();
+                        int index = 1;
+                        for (Physiotherapist x : allPhysios) {
+                            System.out.println(index + ". " + x.getName());
+                            physioMap.put(index, x);
+                            index++;
+                        }
+
+                        System.out.print("Select physiotherapist by number: ");
+                        int physioSelection = Integer.parseInt(scanner.nextLine());
+                        ph = physioMap.get(physioSelection);
+
+                        if (ph == null) {
+                            System.out.println("Invalid selection.");
+                            break;
+                        }
+
 
                         if (ph == null) {
                             System.out.println("Physiotherapist not found.");

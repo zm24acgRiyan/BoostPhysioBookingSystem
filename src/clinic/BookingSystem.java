@@ -110,6 +110,7 @@ public class BookingSystem {
         for (Appointment a : appointments) {
             if (a.getId().equals(appointmentId)) {
                 a.changeStatus("attended");
+                System.out.println("Appointment Has been Attended,Thank you for Visiting!!!");
                 break;
             }
         }
