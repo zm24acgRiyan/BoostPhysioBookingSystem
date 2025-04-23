@@ -118,5 +118,7 @@ public class BookingSystem {
 
     public List<Appointment> getAppointments() {
         return appointments;
+
+
     }
 }
