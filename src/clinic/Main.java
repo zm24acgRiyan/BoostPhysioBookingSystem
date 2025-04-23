@@ -70,9 +70,35 @@ public class Main {
         // Sample patients
         Patient alice = new Patient("001", "Alice Brown", "789 High St", "0778899001");
         Patient bob = new Patient("002", "Bob Green", "101 Maple Ave", "0778899002");
+        Patient rajesh = new Patient("003", "Rajesh Kumar", "22 B-Block, London", "0998877665");
+        Patient priya = new Patient("004", "Priya Sharma", "56 C-Block, Manchester", "0998877666");
+        Patient ananya = new Patient("005", "Ananya Patel", "34 Oak Rd, Birmingham", "0998877667");
+        Patient amit = new Patient("006", "Amit Verma", "12 Green Park, Leeds", "0998877668");
+        Patient neha = new Patient("007", "Neha Gupta", "78 Sadar Bazar, Glasgow", "0998877669");
+        Patient vikram = new Patient("008", "Vikram Reddy", "44 MG Rd, Liverpool", "0998877670");
+        Patient swati = new Patient("009", "Swati Iyer", "23 South St, Edinburgh", "0998877671");
+        Patient siddharth = new Patient("010", "Siddharth Mehta", "89 East Ave, Bristol", "0998877672");
+        Patient sonal = new Patient("011", "Sonal Kapoor", "56 Royal Road, Sheffield", "0998877673");
+        Patient ajay = new Patient("012", "Ajay Singh", "101 West Lane, Cambridge", "0998877674");
+        Patient manisha = new Patient("013", "Manisha Joshi", "76 Hilltop Road, Oxford", "0998877675");
+        Patient rohit = new Patient("014", "Rohit Kumar", "35 Main St, Newcastle", "0998877676");
+        Patient deepika = new Patient("015", "Deepika Thakur", "11 Bridge St, Cardiff", "0998877677");
 
         system.addPatient(alice);
         system.addPatient(bob);
+        system.addPatient(rajesh);
+        system.addPatient(priya);
+        system.addPatient(ananya);
+        system.addPatient(amit);
+        system.addPatient(neha);
+        system.addPatient(vikram);
+        system.addPatient(swati);
+        system.addPatient(siddharth);
+        system.addPatient(sonal);
+        system.addPatient(ajay);
+        system.addPatient(manisha);
+        system.addPatient(rohit);
+        system.addPatient(deepika);
 
         // Console interface
         Scanner scanner = new Scanner(System.in);
@@ -128,7 +154,6 @@ public class Main {
                 case 2:
                     System.out.println("Patients Details");
                     system.viewPatients();
-                    viewPhysiotherapists(system.getPhysios()); // fixed this line
                     break;
 
                 case 3:

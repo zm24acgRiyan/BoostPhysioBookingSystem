@@ -86,10 +86,17 @@ public class BookingSystem {
 
     public void printReport() {
         Map<String, Integer> attendedCount = new HashMap<>();
+
+        System.out.println("Treatment Appointments by Physiotherapist:");
         for (Appointment a : appointments) {
-            String physioName = a.getPhysiotherapist().getName();
-            System.out.println(a);
-            if (a.getStatus().equals("attended")) {
+            System.out.println("Physiotherapist: " + a.getPhysiotherapist().getName() +
+                    ", Treatment: " + a.getTreatment().getName() +
+                    ", Patient: " + a.getPatient().getName() +
+                    ", Time: " + a.getTime() +   // This works if getTime() exists
+                    ", Status: " + a.getStatus());
+
+            if (a.getStatus().equalsIgnoreCase("attended")) {
+                String physioName = a.getPhysiotherapist().getName();
                 attendedCount.put(physioName, attendedCount.getOrDefault(physioName, 0) + 1);
             }
         }
