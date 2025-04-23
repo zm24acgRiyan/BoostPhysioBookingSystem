@@ -75,8 +75,6 @@ public class BookingSystem {
             System.out.println("Appointment ID not found");
         }
     }
-
-    // Method to change a booking (cancel old and rebook new)
     public void changeAppointment(String oldAppointmentId, Appointment newAppointment) {
         boolean found = false;
         for (Appointment a : appointments) {
@@ -87,8 +85,13 @@ public class BookingSystem {
                 } else {
                     a.changeStatus("cancelled");
                     releaseAppointment(a);
+
+                    // Generate new appointment ID before booking
+                    String newId = generateAppointmentId();
+                    newAppointment.setId(newId);
+
                     appointments.add(newAppointment); // Re-book the new appointment
-                    System.out.println("Appointment changed: Old cancelled, new booked");
+                    System.out.println("Appointment changed: Old cancelled, new booked with ID: " + newId);
                 }
                 break;
             }
@@ -98,12 +101,16 @@ public class BookingSystem {
         }
     }
 
-    // Example stub for releasing a slot
     private void releaseAppointment(Appointment appointment) {
-        // Implement your logic here for releasing the appointment slot
-        // e.g., make the time slot available again for others to book
+        // Example logic to release the slot
+        System.out.println("Releasing slot for appointment ID: " + appointment.getId());
     }
 
+
+    // Generates a unique appointment ID based on current time
+    private String generateAppointmentId() {
+        return "APT-" + System.currentTimeMillis();
+    }
 
 
     public void attendAppointment(String appointmentId) {

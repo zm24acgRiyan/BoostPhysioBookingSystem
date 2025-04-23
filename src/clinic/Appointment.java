@@ -22,7 +22,19 @@ public class Appointment {
     public LocalDateTime getTime() {
         return time;
     }
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
 
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getId() {
         return id;
