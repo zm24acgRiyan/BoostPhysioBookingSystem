@@ -13,11 +13,11 @@ public class Main {
         // Sample physiotherapists
         // Create physiotherapists
         Physiotherapist helen = new Physiotherapist("P001", "Helen Smith", "123 London St", "0123456789");
-        helen.addExpertise("Massage");
+        helen.addExpertise("Physiotherapy");
         helen.addExpertise("Rehabilitation");
 
         Physiotherapist john = new Physiotherapist("P002", "Jupiter Brihas", "456 Main Rd", "0987654321");
-        john.addExpertise("Acupuncture");
+        john.addExpertise("Osteopathy");
 
         Physiotherapist emily = new Physiotherapist("P003", "Emily Clarke", "789 Elm Ave", "0171234567");
         emily.addExpertise("Osteopathy");
@@ -25,40 +25,41 @@ public class Main {
 
         Physiotherapist david = new Physiotherapist("P004", "David Lee", "321 Maple Ln", "0154321987");
         david.addExpertise("Physiotherapy");
-        david.addExpertise("Neural mobilisation");
+        david.addExpertise("Osteopathy");
 
         Physiotherapist nina = new Physiotherapist("P005", "Nina Patel", "654 Birch St", "0134567890");
-        nina.addExpertise("Mobilisation of the spine and joints");
-        nina.addExpertise("Pool rehabilitation");
+        nina.addExpertise("Physiotherapy");
 
-        // Assign treatments to physiotherapists for 4 weeks
+
+// Assign treatments to physiotherapists for 4 weeks
         // Week 1
-        helen.addTreatment(new Treatment("Massage", "Massage", LocalDateTime.of(2025, 5, 5, 10, 0), 60));
-        john.addTreatment(new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 6, 11, 0), 60));
-        emily.addTreatment(new Treatment("Rehabilitation", "Rehabilitation", LocalDateTime.of(2025, 5, 7, 14, 0), 60));
-        david.addTreatment(new Treatment("Neural mobilisation", "Neural mobilisation", LocalDateTime.of(2025, 5, 8, 9, 0), 45));
-        nina.addTreatment(new Treatment("Pool rehabilitation", "Pool rehabilitation", LocalDateTime.of(2025, 5, 9, 13, 0), 60));
+        // Week 1
+        helen.addTreatment(new Treatment("Massage", "Massage", LocalDateTime.of(2025, 5, 5, 10, 0), 60)); // OK
+        john.addTreatment(new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 6, 11, 0), 60)); // OK
+        emily.addTreatment(new Treatment("Pool rehabilitation", "Pool rehabilitation", LocalDateTime.of(2025, 5, 7, 14, 0), 60)); // OK (changed from "Rehabilitation")
+        david.addTreatment(new Treatment("Neural mobilisation", "Neural mobilisation", LocalDateTime.of(2025, 5, 8, 9, 0), 45)); // OK
+        nina.addTreatment(new Treatment("Massage", "Massage", LocalDateTime.of(2025, 5, 9, 13, 0), 60)); // changed from "Pool rehabilitation" to "Massage"
 
-        // Week 2
-        helen.addTreatment(new Treatment("Rehabilitation", "Rehabilitation", LocalDateTime.of(2025, 5, 12, 9, 0), 60));
-        john.addTreatment(new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 13, 10, 0), 60));
-        emily.addTreatment(new Treatment("Osteopathy", "Osteopathy", LocalDateTime.of(2025, 5, 14, 15, 0), 60));
-        david.addTreatment(new Treatment("Physiotherapy", "Physiotherapy", LocalDateTime.of(2025, 5, 15, 8, 30), 60));
-        nina.addTreatment(new Treatment("Mobilisation of the spine and joints", "Mobilisation of the spine and joints", LocalDateTime.of(2025, 5, 16, 12, 0), 60));
+// Week 2
+        helen.addTreatment(new Treatment("Pool rehabilitation", "Pool rehabilitation", LocalDateTime.of(2025, 5, 12, 9, 0), 60)); // OK
+        john.addTreatment(new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 13, 10, 0), 60)); // OK
+        emily.addTreatment(new Treatment("Osteopathy", "Osteopathy", LocalDateTime.of(2025, 5, 14, 15, 0), 60)); // OK
+        david.addTreatment(new Treatment("Neural mobilisation", "Neural mobilisation", LocalDateTime.of(2025, 5, 15, 8, 30), 60)); // changed from "Physiotherapy"
+        nina.addTreatment(new Treatment("Massage", "Massage", LocalDateTime.of(2025, 5, 16, 12, 0), 60)); // changed from "Mobilisation of the spine and joints"
 
-        // Week 3
-        helen.addTreatment(new Treatment("Massage", "Massage", LocalDateTime.of(2025, 5, 19, 10, 0), 60));
-        john.addTreatment(new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 20, 11, 30), 60));
-        emily.addTreatment(new Treatment("Rehabilitation", "Rehabilitation", LocalDateTime.of(2025, 5, 21, 13, 30), 60));
-        david.addTreatment(new Treatment("Neural mobilisation", "Neural mobilisation", LocalDateTime.of(2025, 5, 22, 10, 0), 45));
-        nina.addTreatment(new Treatment("Pool rehabilitation", "Pool rehabilitation", LocalDateTime.of(2025, 5, 23, 14, 0), 60));
+// Week 3
+        helen.addTreatment(new Treatment("Massage", "Massage", LocalDateTime.of(2025, 5, 19, 10, 0), 60)); // OK
+        john.addTreatment(new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 20, 11, 30), 60)); // OK
+        emily.addTreatment(new Treatment("Pool rehabilitation", "Pool rehabilitation", LocalDateTime.of(2025, 5, 21, 13, 30), 60)); // OK
+        david.addTreatment(new Treatment("Neural mobilisation", "Neural mobilisation", LocalDateTime.of(2025, 5, 22, 10, 0), 45)); // OK
+        nina.addTreatment(new Treatment("Massage", "Massage", LocalDateTime.of(2025, 5, 23, 14, 0), 60)); // changed from "Pool rehabilitation"
 
-        // Week 4
-        helen.addTreatment(new Treatment("Rehabilitation", "Rehabilitation", LocalDateTime.of(2025, 5, 26, 11, 0), 60));
-        john.addTreatment(new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 27, 9, 0), 60));
-        emily.addTreatment(new Treatment("Osteopathy", "Osteopathy", LocalDateTime.of(2025, 5, 28, 15, 30), 60));
-        david.addTreatment(new Treatment("Physiotherapy", "Physiotherapy", LocalDateTime.of(2025, 5, 29, 8, 45), 60));
-        nina.addTreatment(new Treatment("Mobilisation of the spine and joints", "Mobilisation of the spine and joints", LocalDateTime.of(2025, 5, 30, 13, 0), 60));
+// Week 4
+        helen.addTreatment(new Treatment("Pool rehabilitation", "Pool rehabilitation", LocalDateTime.of(2025, 5, 26, 11, 0), 60)); // OK
+        john.addTreatment(new Treatment("Acupuncture", "Acupuncture", LocalDateTime.of(2025, 5, 27, 9, 0), 60)); // OK
+        emily.addTreatment(new Treatment("Osteopathy", "Osteopathy", LocalDateTime.of(2025, 5, 28, 15, 30), 60)); // OK
+        david.addTreatment(new Treatment("Mobilisation of the spine and joints", "Mobilisation of the spine and joints", LocalDateTime.of(2025, 5, 29, 8, 45), 60)); // OK
+        nina.addTreatment(new Treatment("Massage", "Massage", LocalDateTime.of(2025, 5, 30, 13, 0), 60)); // changed from "Mobilisation of the spine and joints"
 
         // Add physiotherapists to the system
         system.addPhysiotherapist(helen);

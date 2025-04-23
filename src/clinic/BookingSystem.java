@@ -55,16 +55,18 @@ public class BookingSystem {
         appointments.add(appointment);
     }
 
+    // Method to cancel and release an appointment
     public void cancelAppointment(String appointmentId) {
         boolean found = false;
         for (Appointment a : appointments) {
             if (a.getId().equals(appointmentId)) {
                 found = true;
                 if ("attended".equalsIgnoreCase(a.getStatus())) {
-                    System.out.println("Appointment is Already Attended, cannot cancel");
+                    System.out.println("Appointment is already attended, cannot cancel");
                 } else {
                     a.changeStatus("cancelled");
-                    System.out.println("Appointment cancelled");
+                    releaseAppointment(a); // Custom method to release the slot
+                    System.out.println("Appointment cancelled and slot released");
                 }
                 break;
             }
@@ -73,6 +75,35 @@ public class BookingSystem {
             System.out.println("Appointment ID not found");
         }
     }
+
+    // Method to change a booking (cancel old and rebook new)
+    public void changeAppointment(String oldAppointmentId, Appointment newAppointment) {
+        boolean found = false;
+        for (Appointment a : appointments) {
+            if (a.getId().equals(oldAppointmentId)) {
+                found = true;
+                if ("attended".equalsIgnoreCase(a.getStatus())) {
+                    System.out.println("Appointment is already attended, cannot change");
+                } else {
+                    a.changeStatus("cancelled");
+                    releaseAppointment(a);
+                    appointments.add(newAppointment); // Re-book the new appointment
+                    System.out.println("Appointment changed: Old cancelled, new booked");
+                }
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("Old Appointment ID not found");
+        }
+    }
+
+    // Example stub for releasing a slot
+    private void releaseAppointment(Appointment appointment) {
+        // Implement your logic here for releasing the appointment slot
+        // e.g., make the time slot available again for others to book
+    }
+
 
 
     public void attendAppointment(String appointmentId) {
