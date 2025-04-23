@@ -7,6 +7,9 @@ public class Main {
     public static void main(String[] args) {
         BookingSystem system = new BookingSystem();
         Validations v = new Validations();
+        // Declare ph at the class level
+        Physiotherapist ph = null; // Initialize ph as null
+
 
         // Sample physiotherapists
         // Create physiotherapists
@@ -109,8 +112,9 @@ public class Main {
             System.out.println("4. Remove patient");
             System.out.println("5. Book appointment");
             System.out.println("6. Cancel appointment");
-            System.out.println("7. Attend appointment");
-            System.out.println("8. Print report");
+            System.out.println("7. Change an appointment");
+            System.out.println("8. Attend appointment");
+            System.out.println("9. Print report");
             System.out.println("0. Exit");
             System.out.print("Choose an option: ");
             int option = scanner.nextInt();
@@ -171,7 +175,7 @@ public class Main {
                     System.out.print("Choose option: ");
                     int choice = Integer.parseInt(scanner.nextLine());
 
-                    Physiotherapist ph = null;
+                //    Physiotherapist ph = null;
 
                     if (choice == 1) {
                         // Sub-options for expertise
@@ -337,11 +341,74 @@ public class Main {
                     break;
 
                 case 7:
+                    System.out.println("Change an appointment:");
+
+                    // Ask for the old appointment ID
+                    System.out.print("Enter the old appointment ID: ");
+                    String oldAppointmentId = scanner.nextLine();
+
+                    // If ph is already null, ask for physiotherapist name for the new appointment
+                    if (ph == null) {
+                        System.out.print("Enter the physiotherapist name for the new appointment: ");
+                        String physioName = scanner.nextLine();
+
+                        // Fetch the physiotherapist
+                        ph = system.getPhysios().stream()
+                                .filter(x -> x.getName().equalsIgnoreCase(physioName))
+                                .findFirst().orElse(null);
+
+                        if (ph == null) {
+                            System.out.println("Physiotherapist not found.");
+                            break;
+                        }
+                    }
+
+                    // Collect patient ID
+                    System.out.print("Enter the patient ID: ");
+                    String pid = scanner.nextLine();
+                    Patient p = system.getPatients().stream()
+                            .filter(x -> x.getId().equals(pid)).findFirst().orElse(null);
+                    if (p == null) {
+                        System.out.println("Patient not found.");
+                        break;
+                    }
+
+                    // List available treatments from the selected physiotherapist
+                    System.out.println("Available treatments for " + ph.getName() + ":");
+                    int treatmentNumber = 1;
+                    for (Treatment t : ph.getTreatments()) {
+                        System.out.println(treatmentNumber + ". " + t.getName() + " on " + t.getDateTime().toLocalDate() +
+                                " at " + t.getDateTime().toLocalTime());
+                        treatmentNumber++;
+                    }
+
+                    System.out.print("Select the treatment for the new appointment (enter the number): ");
+                    int treatmentChoice = Integer.parseInt(scanner.nextLine());
+
+                    if (treatmentChoice < 1 || treatmentChoice > ph.getTreatments().size()) {
+                        System.out.println("Invalid treatment choice.");
+                        break;
+                    }
+
+                    // Get the selected treatment
+                    Treatment selectedTreatment = ph.getTreatments().get(treatmentChoice - 1);
+
+                    // Create a new appointment
+                    String newAppointmentId = UUID.randomUUID().toString().substring(0, 8);
+                    Appointment newAppointment = new Appointment(newAppointmentId, selectedTreatment, ph, p);
+
+                    // Call the changeAppointment method to cancel old and book new
+                    system.changeAppointment(oldAppointmentId, newAppointment);
+                    break;
+
+
+
+                case 8:
                     System.out.print("Enter appointment ID to attend: ");
                     String atid = scanner.nextLine();
                     system.attendAppointment(atid);
                     break;
-                case 8:
+                case 9:
                     system.printReport();
                     break;
                 case 0:
