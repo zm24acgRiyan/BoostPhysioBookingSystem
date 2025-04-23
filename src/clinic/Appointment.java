@@ -9,7 +9,7 @@ public class Appointment {
     private Patient patient;
     private String status; // booked, cancelled, attended
     private LocalDateTime time;  // Or any other type for time, such as Date
-
+    private String patientId; // Add this field
 
     public Appointment(String id, Treatment treatment, Physiotherapist physiotherapist, Patient patient) {
         this.id = id;
@@ -35,7 +35,9 @@ public class Appointment {
     public void setId(String id) {
         this.id = id;
     }
-
+    public String getPatientId() {
+        return patientId; // This getter allows access to patientId
+    }
     public String getId() {
         return id;
     }

@@ -419,8 +419,6 @@ public class Main {
                     system.changeAppointment(oldAppointmentId, newAppointment);
                     break;
 
-
-
                 case 8:
                     System.out.print("Enter appointment ID to attend: ");
                     String atid = scanner.nextLine();
