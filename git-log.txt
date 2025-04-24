@@ -1,0 +1,127 @@
+commit dda87a09d6ac27e819116a5252dd079362cf99e9
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Fri Apr 25 03:40:36 2025 +0530
+
+    created test cases in junit
+
+commit 7278043196d3be796bbea600eddb3e3775926552
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Thu Apr 24 02:10:00 2025 +0530
+
+    updated appointment booking feature
+
+commit ddb63db3b4b9cce21519484e4b36eb012f7c42b4
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Thu Apr 24 01:35:40 2025 +0530
+
+    Changed UI of the app
+
+commit 91d4521ae2b701642bba025bcfecb0e8bb9b35a8
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Thu Apr 24 00:37:08 2025 +0530
+
+    updated Change feature
+
+commit 1b59b5ff08d52fa61365a6f544a19278eadd46dd
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Wed Apr 23 22:50:25 2025 +0530
+
+    added new change appointment feature
+
+commit 7ef3fcb6cbd2ab09d360c458ab8a57a60b22cded
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Wed Apr 23 22:36:34 2025 +0530
+
+    Attended system function modified
+
+commit 666950af740c5645b354bcf5addd0c6dc7a69a54
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Wed Apr 23 22:29:27 2025 +0530
+
+    modified Book Appointment logic
+
+commit 74fcac8cbe1feb86133f96c7b88108c98a1776d6
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Wed Apr 23 22:16:22 2025 +0530
+
+    modified booking time table
+
+commit 81ce01663576cc7fedd6d499067f93505cba9bfd
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Wed Apr 23 07:47:17 2025 +0530
+
+    update Appointment functionality
+
+commit d74853718cb87881e64e1ebdbf68fc17fd1c64e7
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Wed Apr 23 07:16:05 2025 +0530
+
+    Added Patient Samples and time feature in Final Report
+
+commit 3eaabb864b13f58581adf984dcf7040a2e304eff
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Wed Apr 23 06:55:37 2025 +0530
+
+    modified Appointment cancellation fuctionality
+
+commit 0dd8b7a3c1992f7dc652429ae97009b5c645c231
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Wed Apr 23 02:07:23 2025 +0530
+
+    added 4 week timetable
+
+commit e2ab84db4cec2b0453900a7225679edce9bfb0c5
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Wed Apr 23 01:27:37 2025 +0530
+
+    added view physiotherapist function
+
+commit 1d8c8640bd0b74d7237462e3036772c3dd2f31df
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Tue Apr 22 04:40:56 2025 +0530
+
+    modified remove patient fuctionality
+
+commit 48467d14ac18571888133be3beb3a5a865a02f58
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Tue Apr 22 04:05:48 2025 +0530
+
+    Added view patients function
+
+commit f3f713a4f64d767ce71fa228cfb2d9bfe8790cf2
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Tue Apr 22 03:48:59 2025 +0530
+
+    Updated id and phone validation
+
+commit c69fbd59df0296fc1531c72646a865af0ddfe4b7
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Tue Apr 22 03:32:25 2025 +0530
+
+    Added number validation
+
+commit fe9b56c0d1b1235e24493f22274594ab827f0cb4
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Tue Apr 22 03:32:13 2025 +0530
+
+    Updated add patient function
+
+commit 535b967e08b65736818d1a4a2e9d82f44f6a4c64
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Tue Apr 22 03:23:03 2025 +0530
+
+    Created validations class
+
+commit e579b0db034354531ae4be770f47adfb19247183
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Tue Apr 22 03:18:03 2025 +0530
+
+    Modified add patient function
+    
+    Added name validation
+
+commit c5237b8829379eb692f42522374fa58fe4311087
+Author: zm24acgRiyan <zm24acg@herts.ac.uk>
+Date:   Tue Apr 22 03:06:16 2025 +0530
+
+    Initially application completed
